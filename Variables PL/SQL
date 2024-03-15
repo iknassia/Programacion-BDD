@@ -1,0 +1,119 @@
+-- ACTIVAR SALIDA POR PANTALLA
+SET SERVEROUTPUT ON;
+
+BEGIN
+    dbms_output.put_line('hola');
+
+END;
+
+-- USO DE VARIABLES
+DECLARE
+    v_nombre VARCHAR(20);
+    
+BEGIN
+    v_nombre := 'Pedrito';
+    dbms_output.put_line(v_nombre);
+    END;
+
+    
+DECLARE
+    v_nombre VARCHAR(20);
+    v_apellido VARCHAR2(20) := 'Fuentes';
+BEGIN
+    v_nombre := 'Pedrito';
+    dbms_output.put_line(v_nombre);
+    dbms_output.put_line(v_apellido);
+    END;
+
+
+-- CONCATENAR  
+DECLARE
+    v_nombre VARCHAR(20);
+    v_apellido VARCHAR2(20) := 'Fuentes';
+BEGIN
+    v_nombre := 'Pedrito';
+    dbms_output.put_line('Nombre:' || v_nombre);
+    dbms_output.put_line('Apellido:' || v_apellido);
+    END;
+ 
+    
+--FUNCIONES
+DECLARE
+    v_nombre VARCHAR(20);
+    v_apellido VARCHAR2(20) := 'Fuentes';
+BEGIN
+    v_nombre := UPPER('Pedrito'); --upper mayuscula
+    dbms_output.put_line('Nombre:' || v_nombre);
+    dbms_output.put_line('Apellido:' || LOWER(v_apellido)); --lower minuscula
+    END;
+
+
+/*
+    Determinar la edad aproximada de una persona,
+    utilizando su año de nacimiento
+*/
+DECLARE
+    v_fecha_nac DATE := '21-07-2000';
+    v_fecha_actual DATE := SYSDATE;
+    v_anio_nac NUMBER(4):= 0; --2000
+    v_anio_actual NUMBER (4) := 0; --2024
+    v_edad NUMBER(3) := 0; --24
+    
+BEGIN
+    --Extraer el año de nacimiento
+    v_anio_nac:= EXTRACT(YEAR FROM v_fecha_nac);
+    --Extraer el año actual (EXTRACT)
+    v_anio_actual:= EXTRACT(YEAR FROM v_fecha_actual);
+    --Realizar el cálculo de la edad aproximada
+    v_edad := v_anio_actual - v_anio_nac;
+    --Imprimir edad
+    dbms_output.put_line(v_edad);
+
+END;
+   
+/*Determinar los meses vividos utilizando una fecha de nacimiento especifica*/ 
+
+DECLARE
+    v_fecha_nac DATE := '24-08-2004';
+    v_meses_vividos NUMBER(10);
+BEGIN
+    v_meses_vividos := MONTHS_BETWEEN(SYSDATE, v_fecha_nac);
+    
+    dbms_output.put_line(v_meses_vividos);
+END;
+
+
+/*Determinar los dias vividos, utilizando una fecha de nacimiento especifica*/
+DECLARE
+    v_fecha_nac DATE := '24-08-2004';
+    v_dias_vividos NUMBER(10);
+BEGIN
+    v_dias_vividos := SYSDATE - v_fecha_nac;
+    
+    dbms_output.put_line(v_dias_vividos);
+END;
+
+--CONSTANTES
+DECLARE
+    c_iva CONSTANT NUMBER(2) := 19;
+BEGIN
+    c_iva:= 20;
+END;
+
+-- ATRIBUTO %TYPE
+DECLARE
+    v_nombre VARCHAR2(20);
+    
+    -- SE ASIGNA UN TIPO DE DATO DE UNA COLUMNA
+    v_ape_pat v_nombre%TYPE;
+    v_ape_mat v_nombre%TYPE;
+    
+    -- SE ASIGNA UN TIPO DE DATO DE UNA COLUMNA
+    --v_domicilio clientes.domicilio%TYPE;
+    
+BEGIN
+    v_nombre:= 'Iván';
+    v_ape_pat:='Zamorano';
+    v_ape_mat:='Zamora';
+    dbms_output.put_line(v_nombre||' '||v_ape_pat||' '||v_ape_mat);
+END;
