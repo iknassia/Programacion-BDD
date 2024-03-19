@@ -1,0 +1,56 @@
+SET SERVEROUTPUT ON;
+
+DECLARE
+    v_nombre employees.first_name%TYPE;
+    v_apellido employees.last_name%TYPE;
+    v_fecha_cont employees.hire_date%TYPE;
+
+BEGIN
+    v_nombre := 'Camila';
+    v_apellido := 'Fuentes';
+    v_fecha_cont := SYSDATE;
+    
+    dbms_output.put_line(v_nombre);
+    dbms_output.put_line(v_apellido);
+    dbms_output.put_line(v_fecha_cont);
+
+END;
+
+
+-- VARIABLES BIND 
+--se ejecuta solo con el play (no se debe seleccionar todo el codigo)
+
+VARIABLE b_edad NUMBER
+VAR b_nombre VARCHAR2(20)
+
+DECLARE
+    v_edad NUMBER;
+    v_nombre VARCHAR2(20);
+BEGIN
+    v_edad := :b_edad;
+        v_nombre := :b_nombre;
+
+    dbms_output.put_line(v_edad);
+    dbms_output.put_line(v_nombre);
+END;
+
+
+/*Construir un bloque anonimo que permita capturar la fecha de nacimiento
+ingresada por el usuario y determinar su edad aproximada
+Ejemplo: si el usuario ingresa el '21-08-2000' se imprime por pantalla
+"Edad: 24"*/
+
+VAR b_fecha_nac DATE
+
+DECLARE 
+    v_fecha_nac DATE;
+    v_anio_nac NUMBER(4);
+    v_edad NUMBER(3);
+    
+BEGIN
+v_fecha_nac:= :b_fecha_nac;
+v_edad:= EXTRACT(YEAR FROM SYSDATE) - EXTRACT(YEAR FROM v_anio_nac);
+dbms_output.put_line('Edad:' || v_edad);
+
+END;
+
