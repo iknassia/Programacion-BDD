@@ -1,0 +1,14 @@
+--SELECT NOMBRE INTO V_NOMBRE // INTO ES PARA GUARDAR UN DATO EN V_NOMBRE (variable), EN ESTE CASO "NOMBRE SERÁ" EL DATO
+SET SERVEROUTPUT ON;
+
+DECLARE
+    --v_nombre VARCHAR2(20);
+    v_nombre employees.first_name%TYPE;
+BEGIN
+    SELECT first_name INTO v_nombre FROM employees --desc employees(tabla): buscar q tipo de dato esta usando first_name
+    WHERE employee_id = 200;
+    
+    dbms_output.put_line(v_nombre);
+END;
+
+desc employees;
